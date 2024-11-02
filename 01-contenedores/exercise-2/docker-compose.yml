@@ -1,0 +1,40 @@
+services:
+  
+  some-mongo:
+    build:
+      context: ./database
+      dockerfile: Dockerfile
+    volumes:
+      - C:\Users\jcabe\Codigo\tmp:/data/db
+    env_file:
+      - ./database/.env
+    networks:
+      - lemoncode-challenge
+  
+  topics-api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    depends_on:
+      - some-mongo
+    env_file:
+      - ./backend/.env
+    networks:
+      - lemoncode-challenge
+  
+  topics-front:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - 8080:3000
+    depends_on:
+      - topics-api
+    env_file:
+      - ./frontend/.env
+    networks:
+      - lemoncode-challenge
+
+networks:
+  lemoncode-challenge:
+    driver: bridge
