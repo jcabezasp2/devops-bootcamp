@@ -5,7 +5,7 @@ services:
       context: ./database
       dockerfile: Dockerfile
     volumes:
-      - C:\Users\jcabe\Codigo\tmp:/data/db
+      - ${MONGO_DATA_PATH}:/data/db
     env_file:
       - ./database/.env
     networks:
