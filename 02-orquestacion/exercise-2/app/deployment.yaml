@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todo-app
+  template:
+    metadata:
+      labels:
+        app: todo-app
+    spec:
+      initContainers:
+      - name: check-db-ready
+        image: postgres:10.4
+        command: ['sh', '-c',
+          'until pg_isready -h postgres -p 5432;
+          do echo waiting for database; sleep 2; done;']
+      containers:
+      - name: todo-app
+        image: lemoncodersbc/lc-todo-monolith-db:v5-2024
+        ports:
+        - containerPort: 3000
+        envFrom:
+        - configMapRef:
+            name: todo-app-config
