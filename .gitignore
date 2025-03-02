@@ -2,3 +2,6 @@
 01-contenedores/exercise-1/database/.env
 01-contenedores/exercise-1/frontend/.env
 *.env
+03-cd/exercise-1/version-1/calculator/.gradle/
+03-cd/exercise-1/version-1/calculator/gradle/wrapper/gradle-wrapper.properties
+03-cd/exercise-1/version-1/calculator/gradle/wrapper/gradle-wrapper.jar
